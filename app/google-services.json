@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "324370074314",
+    "firebase_url": "https://hotel-app-3ebb4-default-rtdb.firebaseio.com",
+    "project_id": "hotel-app-3ebb4",
+    "storage_bucket": "hotel-app-3ebb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324370074314:android:8511cd4fe627f18945c233",
+        "android_client_info": {
+          "package_name": "cl.Inacap.inacap_aplicacionesmoviles"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHNm0IZuyRLnOkMtkGltnjAyZmleTJcys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324370074314:android:55b5763bf588869c45c233",
+        "android_client_info": {
+          "package_name": "com.example.hotel_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHNm0IZuyRLnOkMtkGltnjAyZmleTJcys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
