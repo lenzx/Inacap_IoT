@@ -62,6 +62,7 @@
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     <ListView
+        android:id="@+id/LIST_USUARIOS_LISTA"
         android:layout_width="408dp"
         android:layout_height="515dp"
         android:layout_marginBottom="56dp"

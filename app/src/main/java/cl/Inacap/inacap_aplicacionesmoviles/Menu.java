@@ -20,7 +20,6 @@ import cl.Inacap.inacap_aplicacionesmoviles.modelo.Categoria;
 
 public class Menu extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView listaView;
-    List<String> lst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

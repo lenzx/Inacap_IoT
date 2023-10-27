@@ -13,6 +13,14 @@
         android:theme="@style/Theme.Inacap_AplicacionesMoviles"
         tools:targetApi="31">
         <activity
+            android:name=".AgregarUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".CrearUsuario"
+            android:exported="false"
+            android:label="@string/title_activity_crear_usuario"
+            android:theme="@style/Theme.Inacap_AplicacionesMoviles" />
+        <activity
             android:name=".Usuarios"
             android:exported="false"
             android:label="@string/title_activity_usuarios"

@@ -36,9 +36,9 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria> {
 
         Categoria currentItem = categorias.get(position);
 
-        TextView categoriaTextView = listItemView.findViewById(R.id.TXT_MODELLIST_CATEGORIA);
-        TextView descripcionTextView = listItemView.findViewById(R.id.TXT_MODELLIST_DESCRIPCION);
-        ImageView imagenImageView = listItemView.findViewById(R.id.IMG_MODELLIST_IMAGEN);
+        TextView categoriaTextView = listItemView.findViewById(R.id.TXT_USUARIOLIST_NOMBRE);
+        TextView descripcionTextView = listItemView.findViewById(R.id.TXT_USUARIOLIST_APELLIDO);
+        ImageView imagenImageView = listItemView.findViewById(R.id.IMG_USUARIOLIST_IMAGEN);
 
         categoriaTextView.setText(currentItem.getNombre());
         descripcionTextView.setText(currentItem.getDescripcion());
