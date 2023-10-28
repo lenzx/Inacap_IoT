@@ -71,4 +71,12 @@ public class DetallerUsuario extends Fragment {
 
         return view;
     }
+
+    public void actualizarDatos(String id, String nombre, String apellido, String rut, String correo) {
+        this.userId = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.rut = rut;
+        this.correo = correo;
+    }
 }

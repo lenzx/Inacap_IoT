@@ -59,9 +59,7 @@ public class Usuarios extends AppCompatActivity {
                                 .commit();
                     }
                 });
-
             }
-
             @Override
             public void onError(DatabaseError databaseError) {
             }
