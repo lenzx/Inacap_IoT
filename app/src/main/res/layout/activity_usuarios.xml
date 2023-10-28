@@ -17,32 +17,7 @@
         android:backgroundTintMode="src_over"
         tools:ignore="MissingConstraints">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:shadowColor="#FFFFFF"
-                android:text="Usuarios"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="logo"
-                android:src="@drawable/logo" />
-
-
-        </LinearLayout>
-
+        <!-- Contenido de la tarjeta -->
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,27 +25,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="40dp"
         android:contentDescription="todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="MissingConstraints">
+        app:srcCompat="@android:drawable/ic_input_add" />
 
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:elevation="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintBottom_toTopOf="@+id/botonSecondFloting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/LIST_USUARIOS_LISTA"
-        android:layout_width="408dp"
-        android:layout_height="515dp"
+        android:layout_width="404dp"
+        android:layout_height="447dp"
         android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toTopOf="@+id/botonSecondFloting"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.675" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

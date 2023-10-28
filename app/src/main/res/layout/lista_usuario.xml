@@ -2,23 +2,24 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="410dp"
-        android:layout_height="129dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="#18001B"
         android:orientation="horizontal"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-3dp"
-        tools:layout_editor_absoluteY="-2dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="-2dp">
 
         <ImageView
             android:id="@+id/IMG_USUARIOLIST_IMAGEN"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_weight="1"
+            app:srcCompat="@drawable/usuarios"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
@@ -36,7 +37,7 @@
                 android:textSize="34sp" />
 
             <TextView
-                android:id="@+id/TXT_USUARIOLIST_APELLIDO"
+                android:id="@+id/TXT_USUARIO_APELLIDO"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginHorizontal="10dp"
