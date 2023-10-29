@@ -50,7 +50,7 @@ public class Usuarios extends AppCompatActivity {
                 adaptador.setOnItemClickListener(new UsuariosAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(Usuario usuario) {
-                        DetallerUsuario detalleFragment = DetallerUsuario.newInstance(usuario.getId(), usuario.getNombre(), usuario.getApellido(), usuario.getRut(), usuario.getCorreo());
+                        DetallerUsuario detalleFragment = DetallerUsuario.newInstance(usuario);
 
                         getSupportFragmentManager()
                                 .beginTransaction()

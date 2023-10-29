@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginHorizontal="20dp"
+                android:onClick="eliminarUsuario"
                 android:text="Eliminar"
                 android:textAlignment="center"
                 tools:ignore="RtlCompat" />
@@ -77,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginHorizontal="20dp"
+                android:onClick="actualizarUsuario"
                 android:text="Guardar"
                 android:textAlignment="center"
                 tools:ignore="RtlCompat" />

@@ -9,8 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
 import cl.Inacap.inacap_aplicacionesmoviles.R;
+import cl.Inacap.inacap_aplicacionesmoviles.dao.UsuariosDao;
+import cl.Inacap.inacap_aplicacionesmoviles.modelo.Usuario;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,64 +25,85 @@ import cl.Inacap.inacap_aplicacionesmoviles.R;
  */
 public class DetallerUsuario extends Fragment {
 
-    private String userId;
-    private String nombre;
-    private String apellido;
-    private String rut;
-    private String correo;
+    private Usuario usuario;
+    TextView userIdTextView ;
+    TextView nombreTextView;
+    TextView apellidoTextView ;
+    TextView rutTextView ;
+    TextView correoTextView ;
 
-
-    public static DetallerUsuario newInstance(String id, String nombre, String apellido, String rut, String correo) {
+    public static DetallerUsuario newInstance(Usuario usuario) {
         DetallerUsuario fragment = new DetallerUsuario();
-        Bundle args = new Bundle();
-        args.putString("user_id", id);
-        args.putString("user_nombre", nombre);
-        args.putString("user_apellido", apellido);
-        args.putString("user_rut", rut);
-        args.putString("user_correo", correo);
-        fragment.setArguments(args);
+        fragment.usuario = usuario;
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            userId = getArguments().getString("user_id");
-            nombre = getArguments().getString("user_nombre");
-            apellido = getArguments().getString("user_apellido");
-            rut = getArguments().getString("user_rut");
-            correo = getArguments().getString("user_correo");
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detaller_usuario, container, false);
 
-        // Aquí puedes acceder a los elementos de la vista y mostrar detalles del usuario
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-        TextView userIdTextView = view.findViewById(R.id.txtUserId);
-        TextView nombreTextView = view.findViewById(R.id.txtNombre);
-        TextView apellidoTextView = view.findViewById(R.id.txtApellido);
-        TextView rutTextView = view.findViewById(R.id.txtRut);
-        TextView correoTextView = view.findViewById(R.id.txtCorreo);
-        userIdTextView.setText(userId);
-        nombreTextView.setText(nombre);
-        apellidoTextView.setText(apellido);
-        rutTextView.setText(rut);
-        correoTextView.setText(correo);
+        userIdTextView = view.findViewById(R.id.txtUserId);
+        nombreTextView = view.findViewById(R.id.txtNombre);
+        apellidoTextView = view.findViewById(R.id.txtApellido);
+        rutTextView = view.findViewById(R.id.txtRut);
+        correoTextView = view.findViewById(R.id.txtCorreo);
 
-        // Agrega más elementos y lógica para mostrar detalles del usuario según el ID
+        userIdTextView.setText(usuario.getId());
+        nombreTextView.setText(usuario.getNombre());
+        apellidoTextView.setText(usuario.getApellido());
+        rutTextView.setText(usuario.getRut());
+        correoTextView.setText(usuario.getCorreo());
 
         return view;
     }
 
-    public void actualizarDatos(String id, String nombre, String apellido, String rut, String correo) {
-        this.userId = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.rut = rut;
-        this.correo = correo;
+    private void actualizarUsuario() {
+        UsuariosDao usuariosDao = new UsuariosDao(FirebaseDatabase.getInstance());
+        String nuevoNombre = nombreTextView.getText().toString();
+        String nuevoApellido = apellidoTextView.getText().toString();
+        String nuevoRut = rutTextView.getText().toString();
+        String nuevoCorreo = correoTextView.getText().toString();
+
+        usuario.setNombre(nuevoNombre);
+        usuario.setApellido(nuevoApellido);
+        usuario.setRut(nuevoRut);
+        usuario.setCorreo(nuevoCorreo);
+
+        usuariosDao.update(usuario, new UsuariosDao.OnUsuarioActualizadoCallback() {
+            @Override
+            public void onUsuarioActualizado(Usuario usuarioActualizado) {
+                // El usuario se ha actualizado con éxito
+                Toast.makeText(requireContext(), "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+                // Ocurrió un error al actualizar el usuario
+                Toast.makeText(requireContext(), "Error al actualizar el usuario", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+    // Función para eliminar el usuario
+    private void eliminarUsuario() {
+        UsuariosDao usuariosDao = new UsuariosDao(FirebaseDatabase.getInstance());
+
+        usuariosDao.delete(usuario, new UsuariosDao.OnUsuarioEliminadoCallback() {
+            @Override
+            public void onUsuarioEliminado(Usuario usuarioEliminado) {
+                // El usuario se ha eliminado con éxito
+                Toast.makeText(requireContext(), "Usuario eliminado correctamente", Toast.LENGTH_SHORT).show();
+
+                // Cierra el fragmento después de la eliminación
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+                // Ocurrió un error al eliminar el usuario
+                Toast.makeText(requireContext(), "Error al eliminar el usuario", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

@@ -1,6 +1,5 @@
 package cl.Inacap.inacap_aplicacionesmoviles.dao;
 
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,27 +18,26 @@ public class UsuariosDao {
         this.databaseReference = database.getReference("users");
     }
 
-    public void create(Usuario user) {
-
+    public void create(Usuario user, final OnUsuarioCreadoCallback callback) {
         DatabaseReference userRef = this.databaseReference.push();
         user.setId(userRef.getKey());
-        userRef.setValue(user);
+        userRef.setValue(user, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    callback.onUsuarioCreado(user);
+                } else {
+                    callback.onError(databaseError);
+                }
+            }
+        });
     }
-    public Usuario getById(int id) {
-        DataSnapshot dataSnapshot = databaseReference.child(String.valueOf(id)).get().getResult();
+
+    public Usuario getById(String id) {
+        DataSnapshot dataSnapshot = databaseReference.child(id).get().getResult();
         return dataSnapshot.getValue(Usuario.class);
     }
-    public List<Usuario> getAll() {
-        List<Usuario> usuarios = new ArrayList<>();
 
-        DataSnapshot dataSnapshot = databaseReference.get().getResult();
-        for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-            Usuario usuario = childDataSnapshot.getValue(Usuario.class);
-            usuarios.add(usuario);
-        }
-
-        return usuarios;
-    }
     public void getAll2(final OnUsuariosDataReceived callback) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -59,15 +57,53 @@ public class UsuariosDao {
         });
     }
 
-    public void update(Usuario user) {
-        databaseReference.child(user.getId()).setValue(user);
+    public void update(Usuario user, final OnUsuarioActualizadoCallback callback) {
+        DatabaseReference userRef = databaseReference.child(user.getId());
+        userRef.setValue(user, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    callback.onUsuarioActualizado(user);
+                } else {
+                    callback.onError(databaseError);
+                }
+            }
+        });
     }
-    public void delete(Usuario user) {
-        databaseReference.child(user.getId()).removeValue();
+
+    public void delete(Usuario user, final OnUsuarioEliminadoCallback callback) {
+        DatabaseReference userRef = databaseReference.child(user.getId());
+        userRef.removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    callback.onUsuarioEliminado(user);
+                } else {
+                    callback.onError(databaseError);
+                }
+            }
+        });
     }
 
     public interface OnUsuariosDataReceived {
         void onDataReceived(List<Usuario> usuarios);
+        void onError(DatabaseError databaseError);
+    }
+
+    public interface OnUsuarioCreadoCallback {
+        void onUsuarioCreado(Usuario usuario);
+        void onError(DatabaseError databaseError);
+
+        void onError(Exception exception);
+    }
+
+    public interface OnUsuarioActualizadoCallback {
+        void onUsuarioActualizado(Usuario usuario);
+        void onError(DatabaseError databaseError);
+    }
+
+    public interface OnUsuarioEliminadoCallback {
+        void onUsuarioEliminado(Usuario usuario);
         void onError(DatabaseError databaseError);
     }
 }

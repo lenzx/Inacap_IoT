@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
 import cl.Inacap.inacap_aplicacionesmoviles.dao.UsuariosDao;
@@ -37,6 +38,21 @@ public class AgregarUsuario extends AppCompatActivity {
 
     public void createUsuario(String nombre, String apellido, String rut, String correo, UsuariosDao usuarioDAO) {
         Usuario usuario = new Usuario(nombre, apellido, rut, correo);
-        usuarioDAO.create(usuario);
+        usuarioDAO.create(usuario, new UsuariosDao.OnUsuarioCreadoCallback() {
+            @Override
+            public void onUsuarioCreado(Usuario usuario) {
+                finish();
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+
+            }
+
+            @Override
+            public void onError(Exception exception) {
+
+            }
+        });
     }
 }
