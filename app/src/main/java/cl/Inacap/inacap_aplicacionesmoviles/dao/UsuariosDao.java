@@ -1,5 +1,9 @@
 package cl.Inacap.inacap_aplicacionesmoviles.dao;
 
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +27,7 @@ public class UsuariosDao {
         user.setId(userRef.getKey());
         userRef.setValue(user, new DatabaseReference.CompletionListener() {
             @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+            public void onComplete(DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 if (databaseError == null) {
                     callback.onUsuarioCreado(user);
                 } else {
@@ -33,15 +37,28 @@ public class UsuariosDao {
         });
     }
 
-    public Usuario getById(String id) {
-        DataSnapshot dataSnapshot = databaseReference.child(id).get().getResult();
-        return dataSnapshot.getValue(Usuario.class);
+    public Usuario getById(String id, final OnUsuarioDataReceivedById callback) {
+        DatabaseReference userRef = databaseReference.child(id);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                callback.onDataReceived(usuario);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onError(databaseError);
+            }
+        });
+
+        return null;
     }
 
     public void getAll2(final OnUsuariosDataReceived callback) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Usuario> usuarios = new ArrayList<>();
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                     Usuario usuario = childDataSnapshot.getValue(Usuario.class);
@@ -94,7 +111,6 @@ public class UsuariosDao {
         void onUsuarioCreado(Usuario usuario);
         void onError(DatabaseError databaseError);
 
-        void onError(Exception exception);
     }
 
     public interface OnUsuarioActualizadoCallback {
@@ -104,6 +120,11 @@ public class UsuariosDao {
 
     public interface OnUsuarioEliminadoCallback {
         void onUsuarioEliminado(Usuario usuario);
+        void onError(DatabaseError databaseError);
+    }
+
+    public interface OnUsuarioDataReceivedById {
+        void onDataReceived(Usuario usuario);
         void onError(DatabaseError databaseError);
     }
 }

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D8000000"
-    tools:context=".Usuarios">
+    tools:context=".Usuarios"
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -16,6 +17,32 @@
         android:backgroundTint="#D8000000"
         android:backgroundTintMode="src_over"
         tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shadowColor="#FFFFFF"
+                android:text="Usuarios"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="logo"
+                android:src="@drawable/logo" />
+
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

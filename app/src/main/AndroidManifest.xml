@@ -15,11 +15,7 @@
         <activity
             android:name=".AgregarUsuario"
             android:exported="false" />
-        <activity
-            android:name=".CrearUsuario"
-            android:exported="false"
-            android:label="@string/title_activity_crear_usuario"
-            android:theme="@style/Theme.Inacap_AplicacionesMoviles" />
+
         <activity
             android:name=".Usuarios"
             android:exported="false"

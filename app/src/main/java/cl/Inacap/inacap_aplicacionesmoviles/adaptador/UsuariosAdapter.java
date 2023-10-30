@@ -20,6 +20,10 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario> {
     private List<Usuario> usuarios;
     private OnItemClickListener clickListener;
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        clickListener = onItemClickListener;
+    }
+
     public interface OnItemClickListener {
         void onItemClick(Usuario usuario);
     }
@@ -28,10 +32,6 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario> {
         super(context, 0, usuarios);
         this.context = context;
         this.usuarios = usuarios;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        clickListener = listener;
     }
 
     @NonNull

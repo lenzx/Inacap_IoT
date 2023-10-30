@@ -2,6 +2,7 @@ package cl.Inacap.inacap_aplicacionesmoviles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,7 @@ public class AgregarUsuario extends AppCompatActivity {
 
     EditText nombre, apellido, rut, correo;
     Button btn;
-    UsuariosDao usuariosDao = new UsuariosDao(FirebaseDatabase.getInstance());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,27 +32,25 @@ public class AgregarUsuario extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUsuario(nombre.getText().toString(), apellido.getText().toString(), rut.getText().toString(), correo.getText().toString(), usuariosDao);
+                createUsuario();
             }
         });
     }
 
-    public void createUsuario(String nombre, String apellido, String rut, String correo, UsuariosDao usuarioDAO) {
-        Usuario usuario = new Usuario(nombre, apellido, rut, correo);
-        usuarioDAO.create(usuario, new UsuariosDao.OnUsuarioCreadoCallback() {
+    public void createUsuario() {
+        Usuario usuario = new Usuario(nombre.getText().toString(), apellido.getText().toString(), rut.getText().toString(), correo.getText().toString());
+        UsuariosDao usuariosDao = new UsuariosDao(FirebaseDatabase.getInstance());
+
+        usuariosDao.create(usuario, new UsuariosDao.OnUsuarioCreadoCallback() {
             @Override
             public void onUsuarioCreado(Usuario usuario) {
+                setResult(RESULT_OK);
                 finish();
             }
 
             @Override
             public void onError(DatabaseError databaseError) {
-
-            }
-
-            @Override
-            public void onError(Exception exception) {
-
+                // Maneja los errores si es necesario
             }
         });
     }

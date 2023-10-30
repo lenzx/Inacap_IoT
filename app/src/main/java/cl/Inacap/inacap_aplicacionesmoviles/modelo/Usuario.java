@@ -1,5 +1,7 @@
 package cl.Inacap.inacap_aplicacionesmoviles.modelo;
 
+import android.widget.EditText;
+
 public class Usuario {
     private String id;
     private String nombre;
@@ -24,6 +26,14 @@ public class Usuario {
         this.rut = rut;
         this.correo = correo;
     }
+
+    public Usuario(EditText nombre, EditText apellido, EditText rut, EditText correo) {
+        this.nombre = nombre.getText().toString();
+        this.apellido = apellido.getText().toString();
+        this.rut = rut.getText().toString();
+        this.correo = correo.getText().toString();
+    }
+
     public String getId() {
         return id;
     }
